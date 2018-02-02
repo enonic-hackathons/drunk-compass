@@ -1,6 +1,7 @@
 FROM enonic/java8
 
-
+ENV XP_HOME /dest
 ADD . /src
-
-CMD ./gradlew build
+WORKDIR /src
+RUN chmod +x gradlew
+CMD ./gradlew deploy

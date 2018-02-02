@@ -89,3 +89,6 @@ crashlytics-build.properties
 
 # Node modules
 node_modules/
+
+# deploy folder
+deploy
