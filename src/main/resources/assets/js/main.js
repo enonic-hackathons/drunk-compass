@@ -26,12 +26,6 @@ var ws = {
         window.addEventListener("online", toggleOnlineStatus);
 
         wsConnect();
-
-        setInterval(function () {
-            positionUpdated();
-        }, 2 * 1000);
-
-
     };
 })();
 
