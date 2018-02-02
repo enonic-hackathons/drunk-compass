@@ -8,33 +8,33 @@ var ws = {
 
 var isDrunk = function () { return true; }
 
-(function () {
-    window.onload = function () {
-        const mainContainer = document.getElementById("main-container");
 
-        if (!mainContainer) {
-            return;
-        }
+window.onload = function () {
+    const mainContainer = document.getElementById("main-container");
+
+    if (!mainContainer) {
+        return;
+    }
 
 
-        const status = document.getElementById('switch-1');
-        isDrunk = () => status.checked;
-        const statusValue = document.getElementsByClassName('user__status')[0];
+    const status = document.getElementById('switch-1');
+    isDrunk = function () { return status.checked; };
+    const statusValue = document.getElementsByClassName('user__status')[0];
 
-        status.onchange = () => {
-          const value = isDrunk() ? 'Drunk' : 'Sober';
-          statusValue.innerHTML = value;
-          console.log(value);
-        }
+    status.onchange = () => {
+      const value = isDrunk() ? 'Drunk' : 'Sober';
+      statusValue.innerHTML = value;
+      console.log(value);
+    }
 
-        wsConnect();
+    wsConnect();
 
-        setInterval(function () {
-          navigator.geolocation.getCurrentPosition(success, error, geoOptions);
-        }, 2 * 1000);
+    setInterval(function () {
+      navigator.geolocation.getCurrentPosition(success, error, geoOptions);
+    }, 2 * 1000);
 
-    };
-})();
+};
+
 
 
 function wsConnect() {
