@@ -21,30 +21,12 @@ html, body {
   min-height: 100%;
   max-width: 50%;
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
 }
 
 .icon-status {
   display: none;
   max-width: 50%;
   height: auto;
-}
-
-#content-offline {
-  display: none;
-  margin-top: 20px;
-  opacity: 0.8;
-  font-size: 16px;
-}
-
-.online #icon-online,
-.offline #icon-offline,
-.offline #content-offline{
-  display: block;
 }
 
 #page-content {
@@ -90,4 +72,30 @@ html, body {
 @-o-keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+
+// Enonic Drunk Compass styles
+#main-container {
+
+  .user {
+    width: 100%;
+    padding: 30px 20px;
+    background: white;
+    border-radius: 2px;
+    box-sizing: border-box;
+  }
+
+  .user__name {
+    border: none;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    margin: 0 0 30px;
+    padding: 2px 5px;
+    outline: none;
+
+    &:focus {
+      border-bottom: 1px solid #aaa;
+    }
+  }
 }

@@ -6,6 +6,8 @@ var ws = {
     keepAliveIntervalId: null
 };
 
+var isDrunk = function () { return true; }
+
 (function () {
     window.onload = function () {
         const mainContainer = document.getElementById("main-container");
@@ -15,17 +17,22 @@ var ws = {
         }
 
 
-        const toggleOnlineStatus = function () {
-            mainContainer.classList.toggle("online", navigator.onLine);
-            mainContainer.classList.toggle("offline", !navigator.onLine);
-        };
+        const status = document.getElementById('switch-1');
+        isDrunk = () => status.checked;
+        const statusValue = document.getElementsByClassName('user__status')[0];
 
-        toggleOnlineStatus();
-
-        window.addEventListener("offline", toggleOnlineStatus);
-        window.addEventListener("online", toggleOnlineStatus);
+        status.onchange = () => {
+          const value = isDrunk() ? 'Drunk' : 'Sober';
+          statusValue.innerHTML = value;
+          console.log(value);
+        }
 
         wsConnect();
+
+        setInterval(function () {
+          navigator.geolocation.getCurrentPosition(success, error, geoOptions);
+        }, 2 * 1000);
+
     };
 })();
 
@@ -56,7 +63,7 @@ function onWsClose() {
     clearInterval(ws.keepAliveIntervalId);
     ws.connected = false;
 
-    setTimeout(wsConnect, 2000); // attempt to reconnect
+    setTimeout(wsConnect, 2000);
 }
 
 function onWsMessage(event) {
@@ -64,15 +71,31 @@ function onWsMessage(event) {
     console.log("Message --> received: ", message);
 }
 
-var positionUpdated = function () {
-    send({
-        positon: "-34,53",
-        drunk: true
-    })
-};
-
-
 var send = function (data) {
-
     ws.connection.send(JSON.stringify(data));
 };
+
+var geoOptions = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+function success(pos) {
+  var crd = pos.coords;
+
+  send({
+      latitude: crd.latitude,
+      longitude: crd.longitude,
+      drunk: isDrunk()
+  })
+
+  console.log('Your current position is:');
+  console.log(`Latitude : ${crd.latitude}`);
+  console.log(`Longitude: ${crd.longitude}`);
+  console.log(`More or less ${crd.accuracy} meters.`);
+};
+
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
