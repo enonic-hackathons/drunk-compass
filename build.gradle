@@ -1,0 +1,43 @@
+plugins {
+    id 'com.enonic.xp.app' version '1.0.17'
+    id "com.moowork.node" version "1.1.1"
+}
+
+app {
+    name = project.appName
+    displayName = 'Enonic Drunk Compass'
+    vendorName = 'Enonic AS'
+    vendorUrl = 'http://enonic.com'
+    systemVersion = "${xpVersion}"
+}
+
+node {
+    download = true
+    version = '6.9.2'
+}
+
+dependencies {
+    compile "com.enonic.xp:core-api:${xpVersion}"
+    compile "com.enonic.xp:portal-api:${xpVersion}"
+    include "com.enonic.xp:lib-content:${xpVersion}"
+    include "com.enonic.xp:lib-portal:${xpVersion}"
+    include "com.enonic.xp:lib-mustache:${xpVersion}"
+    include "com.enonic.xp:lib-io:${xpVersion}"
+    include "com.enonic.lib:lib-router:1.0.1"
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+    xp.enonicRepo()
+}
+
+task webpack(type: NodeTask) {
+    script = file('node_modules/webpack/bin/webpack.js')
+}
+
+// processes your package.json before running webpack
+webpack.dependsOn 'npmInstall'
+webpack.dependsOn 'processResources'
+
+jar.dependsOn webpack
