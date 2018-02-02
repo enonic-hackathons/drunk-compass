@@ -6,8 +6,8 @@ var ws = {
     keepAliveIntervalId: null
 };
 
-var isDrunk = function () { return true; }
-
+var isDrunk = function () { return true; };
+var getName = function () { return ''; }
 
 window.onload = function () {
     const mainContainer = document.getElementById("main-container");
@@ -16,10 +16,12 @@ window.onload = function () {
         return;
     }
 
-
     const status = document.getElementById('switch-1');
     isDrunk = function () { return status.checked; };
     const statusValue = document.getElementsByClassName('user__status')[0];
+
+    const userName = document.getElementById('user__name');
+    getName = () => userName.value
 
     status.onchange = () => {
       const value = isDrunk() ? 'Drunk' : 'Sober';
@@ -87,6 +89,7 @@ function success(pos) {
   send({
       latitude: crd.latitude,
       longitude: crd.longitude,
+      name: getName(),
       drunk: isDrunk()
   })
 
