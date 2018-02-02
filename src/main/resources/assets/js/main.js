@@ -67,8 +67,7 @@ function onWsClose() {
 
 function onWsMessage(event) {
     var message = JSON.parse(event.data);
-    console.log("Message received: ", message);
-
+    console.log("Message - received: ", message);
 }
 
 var positionUpdated = function () {

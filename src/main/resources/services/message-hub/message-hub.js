@@ -63,6 +63,8 @@ function handleWsMessage(event) {
          return;
      }
      */
+
+    webSocketLib.sendToGroup(channel, JSON.stringify(message));
 }
 
 function leave(event) {
