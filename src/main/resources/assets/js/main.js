@@ -6,8 +6,9 @@ var ws = {
     keepAliveIntervalId: null
 };
 
-var isDrunk = function () { return true; };
-var getName = function () { return ''; }
+var isDrunk = () => true;
+var getName = () => '';
+var setPosition = () => {};
 
 window.onload = function () {
     const mainContainer = document.getElementById("main-container");
@@ -22,6 +23,11 @@ window.onload = function () {
 
     const userName = document.getElementById('user__name');
     getName = () => userName.value
+
+    const userPosition = document.getElementsByClassName('user__position')[0];
+    setPosition = (latitude, longitude) => {
+      userPosition.innerHTML = `${latitude} ${longitude}`
+    };
 
     status.onchange = () => {
       const value = isDrunk() ? 'Drunk' : 'Sober';
@@ -38,14 +44,12 @@ window.onload = function () {
 };
 
 
-
 function wsConnect() {
     console.log("Connecting to WS");
     ws.connection = new WebSocket(wsUrl, ['result']);
     ws.connection.onopen = onWsOpen;
     ws.connection.onclose = onWsClose;
     ws.connection.onmessage = onWsMessage;
-
 }
 
 function onWsOpen() {
@@ -85,6 +89,8 @@ var geoOptions = {
 
 function success(pos) {
   var crd = pos.coords;
+
+  setPosition(crd.latitude, crd.longitude);
 
   send({
       latitude: crd.latitude,
