@@ -25,6 +25,7 @@ dependencies {
     include "com.enonic.xp:lib-io:${xpVersion}"
     include "com.enonic.lib:lib-router:1.0.1"
     include "com.enonic.xp:lib-websocket:${xpVersion}"
+    include "openxp.lib.geolocation:geolocation:1.0.0-SNAPSHOT"
 }
 
 repositories {
