@@ -1,13 +1,17 @@
-
 var mustacheLib = require('/lib/xp/mustache');
 var router = require('/lib/router')();
 var helper = require('/lib/helper');
 var swController = require('/lib/pwa/sw-controller');
 var siteTitle = 'PWA Starter';
+var portal = require('/lib/xp/portal');
 
 var renderPage = function (pageName) {
 
     return function () {
+
+        var wsUrl = portal.serviceUrl({service: 'message-hub', type: 'absolute'});
+        wsUrl = 'ws' + wsUrl.substring(wsUrl.indexOf(':'));
+
         return {
             body: mustacheLib.render(resolve('pages/' + pageName), {
                 title: siteTitle,
@@ -15,6 +19,7 @@ var renderPage = function (pageName) {
                 baseUrl: helper.getBaseUrl(),
                 precacheUrl: helper.getBaseUrl() + '/precache',
                 themeColor: '#FFF',
+                wsUrl: wsUrl,
                 styles: mustacheLib.render(resolve('/pages/styles.html')),
                 serviceWorker: mustacheLib.render(resolve('/pages/sw.html'), {
                     title: siteTitle,

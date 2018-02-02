@@ -1,5 +1,11 @@
 require('../css/styles.less');
 
+var ws = {
+    connected: false,
+    connection: null,
+    keepAliveIntervalId: null
+};
+
 (function () {
     window.onload = function () {
         const mainContainer = document.getElementById("main-container");

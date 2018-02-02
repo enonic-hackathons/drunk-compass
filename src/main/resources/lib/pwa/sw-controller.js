@@ -1,7 +1,6 @@
 var mustache = require('/lib/xp/mustache');
 var view = resolve('sw-template.js');
 var helper = require('/lib/helper');
-var portal = require('/lib/xp/portal');
 
 exports.get = function () {
     var appUrl = helper.getAppUrl();
