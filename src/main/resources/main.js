@@ -1,11 +1,13 @@
+
 var mustacheLib = require('/lib/xp/mustache');
 var router = require('/lib/router')();
 var helper = require('/lib/helper');
 var swController = require('/lib/pwa/sw-controller');
 var siteTitle = 'PWA Starter';
 
-var renderPage = function(pageName) {
-    return function() {
+var renderPage = function (pageName) {
+
+    return function () {
         return {
             body: mustacheLib.render(resolve('pages/' + pageName), {
                 title: siteTitle,
@@ -36,3 +38,4 @@ router.get('/sw.js', swController.get);
 exports.get = function (req) {
     return router.dispatch(req);
 };
+

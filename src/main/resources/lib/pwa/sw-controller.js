@@ -1,12 +1,13 @@
 var mustache = require('/lib/xp/mustache');
 var view = resolve('sw-template.js');
 var helper = require('/lib/helper');
+var portal = require('/lib/xp/portal');
 
-exports.get = function() {
+exports.get = function () {
     var appUrl = helper.getAppUrl();
     var baseUrl = helper.getBaseUrl();
     var postfix = '?source=web_app_manifest';
-    
+
     var preCacheRoot;
     if (appUrl === '/') {
         preCacheRoot = '/' + ',\'' + postfix;
@@ -15,7 +16,7 @@ exports.get = function() {
     } else {
         preCacheRoot = appUrl + '\',\'' + appUrl + '/' + '\',\'' + appUrl + '/' + postfix;
     }
-    
+
     return {
         headers: {
             'Service-Worker-Allowed': appUrl
@@ -25,7 +26,7 @@ exports.get = function() {
             appUrl: appUrl,
             baseUrl: baseUrl,
             preCacheRoot: preCacheRoot,
-            appVersion: app.version
+            appVersion: app.version,
         })
     };
 };
