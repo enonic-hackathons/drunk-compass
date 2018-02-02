@@ -36,6 +36,7 @@ function wsConnect() {
     ws.connection.onopen = onWsOpen;
     ws.connection.onclose = onWsClose;
     ws.connection.onmessage = onWsMessage;
+
 }
 
 

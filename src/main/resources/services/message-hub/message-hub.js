@@ -40,6 +40,7 @@ function handleEvent(event) {
 
 function connect(event) {
     webSocketLib.addToGroup(channel, getSessionId(event));
+    sendToGroup(channel, "Connected: %s" + JSON.stringify(event));
 }
 
 function handleWsMessage(event) {
@@ -66,7 +67,9 @@ function handleWsMessage(event) {
 
 function leave(event) {
     var sessionId = getSessionId(event);
+    sendToGroup(channel, "Disconnected: %s" + JSON.stringify(event))
     websocketLib.removeFromGroup(chatGroup, sessionId);
+
 }
 
 function getSessionId(event) {
