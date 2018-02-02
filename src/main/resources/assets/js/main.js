@@ -14,6 +14,7 @@ var ws = {
             return;
         }
 
+
         const toggleOnlineStatus = function () {
             mainContainer.classList.toggle("online", navigator.onLine);
             mainContainer.classList.toggle("offline", !navigator.onLine);
@@ -25,6 +26,11 @@ var ws = {
         window.addEventListener("online", toggleOnlineStatus);
 
         wsConnect();
+
+        setInterval(function () {
+            positionUpdated();
+        }, 2 * 1000);
+
 
     };
 })();
@@ -39,21 +45,21 @@ function wsConnect() {
 
 }
 
-
 function onWsOpen() {
 
     console.log("Connected to WS");
 
     ws.keepAliveIntervalId = setInterval(function () {
         if (ws.connected) {
-            this.ws.connection.send('{"action":"KeepAlive"}');
+            ws.connection.send('{"action":"KeepAlive"}');
         }
     }, 10 * 1000);
     ws.connected = true;
 }
 
 function onWsClose() {
-    clearInterval(keepAliveIntervalId);
+    console.log("Im closing the connection: ");
+    clearInterval(ws.keepAliveIntervalId);
     ws.connected = false;
 
     setTimeout(wsConnect, 2000); // attempt to reconnect
@@ -61,10 +67,19 @@ function onWsClose() {
 
 function onWsMessage(event) {
     var message = JSON.parse(event.data);
-
     console.log("Message received: ", message);
 
-    if (message.type === "jobFinished") {
-        handleJobFinished(message);
-    }
 }
+
+var positionUpdated = function () {
+    send({
+        positon: "-34,53",
+        drunk: true
+    })
+};
+
+
+var send = function (data) {
+
+    ws.connection.send(JSON.stringify(data));
+};
