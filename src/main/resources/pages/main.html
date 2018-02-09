@@ -22,6 +22,8 @@
 
     <script type="text/javascript">
         var wsUrl = "{{wsUrl}}";
+        var listTemplate = decodeURI("{{listTemplate}}");
+        //console.log(listTemplate);
     </script>
 
 </head>
@@ -55,7 +57,45 @@
                 </label>
                 <p class="user__position"></p>
             </div>
+
             <div class="friends mdl-shadow--2dp">
+                <!-- List with avatar and controls -->
+                <style>
+                .demo-list-control {
+                  width: 300px;
+                }
+
+                .demo-list-radio {
+                  display: inline;
+                }
+                </style>
+
+                <!--<ul id="personList" class="demo-list-control mdl-list">
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                        Person
+                      </span>
+                      <span class="mdl-list__item-primary-content">
+                        Is drunk?
+                      </span>
+                      <span class="mdl-list__item-primary-content">
+                        Position
+                      </span>
+                    </li>
+                </ul>-->
+                <table class="mdl-data-table mdl-js-data-table">
+                  <thead>
+                    <tr>
+                      <th class="mdl-data-table__cell--non-numeric">Name</th>
+                      <th class="mdl-data-table__cell--non-numeric">Is drunk?</th>
+                      <th class="mdl-data-table__cell--non-numeric">Position</th>
+                      <th class="mdl-data-table__cell--non-numeric">Distance (m)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="personList">
+                    
+                  </tbody>
+                </table>
 
             </div>
 

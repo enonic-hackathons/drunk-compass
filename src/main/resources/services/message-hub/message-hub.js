@@ -46,7 +46,7 @@ function connect(event) {
 function handleWsMessage(event) {
     var message = JSON.parse(event.message);
 
-    log.info("MESSAGE: %s", JSON.stringify(message));
+    //log.info("MESSAGE: %s", JSON.stringify(message));
 
     /* if (message.action == 'join') {
          join(event, message.avatar);
