@@ -102,7 +102,8 @@ function onWsMessage(event) {
       var randomName = message.randomName.trim();
       var list = document.querySelector("#personList");
       var newItem = listTemplate
-      .replace(/{userName}/g, randomName)
+      .replace(/{userName}/g, message.name)
+      .replace(/{randomName}/g, randomName)
       .replace(/{drunk}/g, (message.drunk?'Yes':'No'))
       .replace(/{position}/g, (message.latitude + ',' + message.longitude));
       if (distance){
