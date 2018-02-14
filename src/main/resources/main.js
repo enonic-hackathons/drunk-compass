@@ -14,9 +14,11 @@ var renderPage = function (pageName) {
         var wsUrl = portal.serviceUrl({service: 'message-hub', type: 'absolute'});
         wsUrl = 'ws' + wsUrl.substring(wsUrl.indexOf(':'));
 
-        var listTemplate = encodeURI(thymeleafLib.render(resolve('/pages/listTemplate.html'),{}));
+        //var listTemplate = encodeURI(thymeleafLib.render(resolve('/pages/listTemplate.html'),{}));
+        var listTemplate = encodeURI(mustacheLib.render(resolve('/pages/listTemplate.html'),{}));
         log.info("listTemplate: %s",listTemplate);
         return {
+            contentType:'text/html',
             body: mustacheLib.render(resolve('pages/' + pageName), {
                 title: siteTitle,
                 version: app.version,
@@ -24,6 +26,10 @@ var renderPage = function (pageName) {
                 precacheUrl: helper.getBaseUrl() + '/precache',
                 themeColor: '#FFF',
                 wsUrl: wsUrl,
+                header:mustacheLib.render(resolve('/pages/header.html'),
+                    {title:siteTitle}),
+                menu: mustacheLib.render(resolve('/pages/menu.html'),
+                    {title:siteTitle, version:app.version, baseUrl:helper.getBaseUrl()}),
                 styles: mustacheLib.render(resolve('/pages/styles.html')),
                 listTemplate: listTemplate,
                 serviceWorker: mustacheLib.render(

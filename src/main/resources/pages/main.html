@@ -15,36 +15,29 @@
     <meta name="msapplication-config" content="{{baseUrl}}/browserconfig.xml"/>
     <meta name="msapplication-TileColor" content="{{themeColor}}">
     <meta name="Description" content="{{title}}">
+    
+    <script type="text/javascript">
+        var wsUrl = "{{wsUrl}}";
+        var listTemplate = '<div>Loading...</div>';
+        listTemplate = decodeURI("{{listTemplate}}");
+        //console.log(listTemplate);
+    </script>
 
     <script type="text/javascript" src="{{precacheUrl}}/js/material.min.js" async></script>
     <script type="text/javascript" src="{{precacheUrl}}/bundle.js" async></script>
+    
     {{{styles}}}
 
-    <script type="text/javascript">
-        var wsUrl = "{{wsUrl}}";
-        var listTemplate = decodeURI("{{listTemplate}}");
-        //console.log(listTemplate);
-    </script>
+    
 
 </head>
 
 <body>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    
+    {{{header}}}
 
-    <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-            <!-- Title -->
-            <span class="mdl-layout-title">{{title}}</span>
-        </div>
-    </header>
-    <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">{{title}} {{version}}</span>
-        <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="{{baseUrl}}"><b>Home</b></a>
-            <a class="mdl-navigation__link" href="{{baseUrl}}/about">About</a>
-            <a class="mdl-navigation__link" href="{{baseUrl}}/contact">Contact</a>
-        </nav>
-    </div>
+    {{{menu}}}
 
     <main class="mdl-layout__content" id="main-content">
         <div id="main-container">
@@ -113,6 +106,6 @@
 </div>
 
 {{{serviceWorker}}}
-
+    
 </body>
 </html>

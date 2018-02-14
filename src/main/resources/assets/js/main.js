@@ -101,6 +101,9 @@ function onWsMessage(event) {
       var distance = getDistanceFromLatLonInKm(currentCoords.latitude, currentCoords.longitude, message.latitude, message.longitude);
       var randomName = message.randomName.trim();
       var list = document.querySelector("#personList");
+      if (!listTemplate){
+        listTemplate = '<div>Loading...</div>';
+      }
       var newItem = listTemplate
       .replace(/{userName}/g, message.name)
       .replace(/{randomName}/g, randomName)
