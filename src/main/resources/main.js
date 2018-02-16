@@ -12,7 +12,7 @@ var renderPage = function (pageName) {
     return function () {
 
         var wsUrl = portal.serviceUrl({service: 'message-hub', type: 'absolute'});
-        wsUrl = 'ws' + wsUrl.substring(wsUrl.indexOf(':'));
+        wsUrl = 'wss' + wsUrl.substring(wsUrl.indexOf(':'));
 
         //var listTemplate = encodeURI(thymeleafLib.render(resolve('/pages/listTemplate.html'),{}));
         var listTemplate = encodeURI(mustacheLib.render(resolve('/pages/listTemplate.html'),{}));
